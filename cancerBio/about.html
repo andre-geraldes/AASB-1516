@@ -87,7 +87,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home</title>
+    <title>About</title>
 
     <!-- Core CSS -->
     <link href="css/basic.min.css" rel="stylesheet">
@@ -145,13 +145,10 @@
 
     <!-- Page Content -->
     <div class="container">
+
         <div class="row">
             <div class="col-lg-12 text-center">
-                <p class="lead">Please add an excel file to input!</p>
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file">
-                </form>
-                <button onclick="parseFile()" name="submit" id="submit"> Send</button>
+                <p class="lead">Report?</p>
             </div>
         </div>
         <!-- /.row -->
@@ -164,32 +161,6 @@
 
     <!-- Core JavaScript -->
     <script src="js/basic.min.js"></script>
-    <script>
-    function parseFile(){
-        var file = document.getElementById("file");
-        var alpha=file.files[0];
-        var fd= new FormData();
-        fd.append('file',alpha);
-        $.ajax({
-            url: 'upload.php',
-            type: 'post',
-            data: fd ,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,   // tell jQuery not to set contentType
-            success: function(response) {
-                if(response == 1){
-                    window.location.replace("table.html");
-                }
-                else{
-                    window.alert("Invalid file!")
-                }
-            },
-            error: function(err) {
-            window.alert("Error on communication!");
-            }
-        });
-    }
-    </script>
 </body>
 
 </html>

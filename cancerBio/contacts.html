@@ -87,7 +87,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Home</title>
+    <title>Contact</title>
 
     <!-- Core CSS -->
     <link href="css/basic.min.css" rel="stylesheet">
@@ -145,15 +145,26 @@
 
     <!-- Page Content -->
     <div class="container">
+
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <p class="lead">Please add an excel file to input!</p>
-                <form action="upload.php" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="file">
-                </form>
-                <button onclick="parseFile()" name="submit" id="submit"> Send</button>
-            </div>
         </div>
+        <h2 class="text-primary">Contact</h2>
+        André Geraldes a67673<br>
+        <a href="mailto:andrejfgeraldes@gmail.com"><img src="/img/email_web_over.gif"></a>email<br>
+        <p></p>
+        Emanuel Queiroga <br>
+        <a href="mailto:emanuel_queiroga1@hotmail.com"><img src="/img/email_web_over.gif"></a>email<br>
+        <p></p>
+        Helder Gonçalves a64286<br>
+        <a href="mailto:helderdaniel10@gmail.com"><img src="/img/email_web_over.gif"></a>email<br>
+        <p></p>
+        Luís Brito a54056<br>
+        <a href="mailto:lbrbrito@gmail.com"><img src="/img/email_web_over.gif"></a>email<br>
+        <p></p>
+        <h2>Orientador</h2>
+        Professor<br>
+
+        <a href="http://www.uminho.pt" class="uminho-footer">UMinho</a>
         <!-- /.row -->
 
     </div>
@@ -164,32 +175,6 @@
 
     <!-- Core JavaScript -->
     <script src="js/basic.min.js"></script>
-    <script>
-    function parseFile(){
-        var file = document.getElementById("file");
-        var alpha=file.files[0];
-        var fd= new FormData();
-        fd.append('file',alpha);
-        $.ajax({
-            url: 'upload.php',
-            type: 'post',
-            data: fd ,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,   // tell jQuery not to set contentType
-            success: function(response) {
-                if(response == 1){
-                    window.location.replace("table.html");
-                }
-                else{
-                    window.alert("Invalid file!")
-                }
-            },
-            error: function(err) {
-            window.alert("Error on communication!");
-            }
-        });
-    }
-    </script>
 </body>
 
 </html>

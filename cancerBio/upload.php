@@ -12,6 +12,10 @@
         $uploadOk = 0;
     }
 
+    if (file_exists($target_file)) {
+        unlink($target_file);
+    }
+
     if($uploadOk){
         move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
         $objPHPExcel = PHPExcel_IOFactory::load($target_file);
@@ -46,6 +50,10 @@
             $b[] = array('name' => $cases[$i]);
         }
         $all = array('gene' => $a, 'caseID' => $b);
+        //Erase last json file
+        if (file_exists('cancer.json')) {
+            unlink('cancer.json');
+        }
         //Create json file
         $myfile = fopen("cancer.json", "w");
         fwrite($myfile, json_encode($all));
@@ -53,6 +61,13 @@
 
 
         //Get values for tsv file
+        $pattern_trunc = "/[A-Z][0-9]+\*/";
+        $pattern_missence = "/([A-Z][0-9]+[A-Z]$)|([A-Z][0-9]+[A-Z],)|([A-Z][0-9]+[A-Z];)/";
+        $pattern_frameshift = "/fs/";
+        $pattern_splice = "/splice/";
+        $pattern_deletion = "/([A-Z0-9\_]+((del\;)|(del\,)))|($[A-Z0-9\_]+del)/";
+        $pattern_delins = "/delins/";
+        $pattern_insertion = "/[0-9]ins/";
         for ($col = 1; $col < $highestColumnIndex; ++ $col) {
             for ($row = 2; $row <= $highestRow; ++ $row) {
                 $cell = $worksheet->getCellByColumnAndRow($col, $row);
@@ -60,19 +75,45 @@
                 $total = "";
                 if($val != ''){
                     if(strpos($val, 'MUT') !== false){
-                        $total .= "1";
-                    }
-                    if(strpos($val, 'DOWN') !== false){
-                        $total .= "2";
+                        if (preg_match($pattern_trunc, $val)){
+                            $total .= 'A';
+                        }
+                        if (preg_match($pattern_missence, $val)){
+                            $total .= 'B';
+                        }
+                        if (preg_match($pattern_frameshift, $val)){
+                            $total .= 'C';
+                        }
+                        if (preg_match($pattern_splice, $val)){
+                            $total .= 'D';
+                        }
+                        if (preg_match($pattern_deletion, $val)){
+                            $total .= 'E';
+                        }
+                        if (preg_match($pattern_delins, $val)){
+                            $total .= 'F';
+                        }
+                        if (preg_match($pattern_insertion, $val)){
+                            $total .= 'G';
+                        }
                     }
                     if(strpos($val, 'AMP') !== false){
-                        $total .= "3";
-                    }
-                    if(strpos($val, 'UP') !== false){
-                        $total .= "4";
+                        $total .= "1";
                     }
                     if(strpos($val, 'HOMDEL') !== false){
+                        $total .= "2";
+                    }
+                    if(strpos($val, 'UP') !== false){
+                        $total .= "3";
+                    }
+                    if(strpos($val, 'DOWN') !== false){
+                        $total .= "4";
+                    }
+                    if(strpos($val, 'HYPER') !== false){
                         $total .= "5";
+                    }
+                    if(strpos($val, 'HYPO') !== false){
+                        $total .= "6";
                     }
                     if(strlen($total) == 0){
                         $total = "0";
@@ -83,6 +124,10 @@
                 }
                 $array[] = ($row-1)."\t".$col."\t"."$total";
             }
+        }
+        //Erase last tsv
+        if (file_exists('cancer.tsv')) {
+            unlink('cancer.tsv');
         }
         //Create tsv file
         $myfile = fopen("cancer.tsv", "w");

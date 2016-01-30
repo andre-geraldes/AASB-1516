@@ -10,7 +10,7 @@ html {
       -ms-text-size-adjust: 100%;
 }
 body {
-  margin: 0;
+    margin: 10;
 }
 article,
 aside,
@@ -93,10 +93,13 @@ figure {
   margin: 1em 40px;
 }
 hr {
-  height: 0;
+  height: 2px;
+  background-color: rgb(23, 104, 150);
+  border: 0;
   -webkit-box-sizing: content-box;
      -moz-box-sizing: content-box;
           box-sizing: content-box;
+
 }
 pre {
   overflow: auto;

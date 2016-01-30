@@ -88,14 +88,13 @@
     <meta name="author" content="">
 
     <title>Home</title>
-
     <!-- Core CSS -->
-    <link href="css/basic.min.css" rel="stylesheet">
+    <link href="css/basic.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
     body {
-        padding-top: 70px;
+        padding-top: 50px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
     </style>
@@ -109,7 +108,7 @@
 
 </head>
 
-<body>
+<body
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -145,8 +144,26 @@
 
     <!-- Page Content -->
     <div class="container">
+        <br>
+        <h1 style="color:rgb(23, 104, 150)"><p class="text-center">Multidimensional viewer of genetic alterations in cancer studies</p></h1>
+        <br><br>
+        <p class="text-justify">
+            Genetic studies on cancer try to find the set of changes that may occur within the genome,
+            transcriptome or metiloma that might explain the origin of the cancer. They are usually found different changes for a tissue of
+            cancer, such as somatic mutations in the DNA which can be of different types as
+            its consequences (non-synonymous, frame-shift, deletions, ...).
+            We can also find changes in the level of expression of genes (which may be under- or over-expressed)
+            or changes in metiloma that can be hyper- or hypo-methylated. There is also chromosomal alterations of loss
+            or gain of the regions of the genome. All this information is typically described by the gene at the level of each sample.
+
+        </p>
+        <img src="img/excel.png" class="img-responsive center-block img-thumbnail" alt="excel" style="width:604px;height:328px;">
+        <p class="text-center">Sample of data in an excel. The data consist of a set of N (samples) x P (genes) matrices, one for each type of change.</p>
+        <hr>
+
+        <!--
         <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-12 text-justify">
                 <p class="lead">Please add an excel file to input!</p>
                 <form action="upload.php" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="file">
@@ -154,8 +171,20 @@
                 <button onclick="parseFile()" name="submit" id="submit"> Send</button>
             </div>
         </div>
-        <!-- /.row -->
-
+        -->
+        <!-- text input:
+        <input type="text" class="form-control" placeholder="Text input">
+        -->
+        <div class="form-inline" style="width: 350px; padding: 10px; border: 2px solid rgb(23, 104, 150);">
+            <label for="file">File input</label>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="file">
+            </form>
+            <p class="help-block">Only excel files e.g .xls, .xlsx.</p>
+            <button type="button" class="btn btn-primary btn-xs" name="submit" id="submit" onclick="parseFile()" style="float: right;">Send</button>
+            <!--<button class="btn btn-default" type="submit" onclick="parseFile()">Send</button>-->
+            <!--<button onclick="parseFile()" name="submit" id="submit"> Send</button>-->
+        </div>
     </div>
     <!-- /.container -->
 
@@ -185,7 +214,7 @@
                 }
             },
             error: function(err) {
-            window.alert("Error on communication!");
+                window.alert("Error on communication!");
             }
         });
     }

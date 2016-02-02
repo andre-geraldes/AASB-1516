@@ -5,19 +5,22 @@
     $target_dir = "uploads/";
     $target_file = $target_dir . basename($_FILES["file"]["name"]);
     $uploadOk = 1;
-    $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+    $fileType = pathinfo($target_file,PATHINFO_EXTENSION);
 
     // Allow certain file formats
-    if($imageFileType != "xlsx" && $imageFileType != "xls") {
+    if($fileType != "xlsx" && $fileType != "xls") {
         $uploadOk = 0;
     }
 
+    //Check if file exists, if so, erases it
     if (file_exists($target_file)) {
         unlink($target_file);
     }
 
     if($uploadOk){
+        //Save file
         move_uploaded_file($_FILES["file"]["tmp_name"], $target_file);
+        //Open the excel file
         $objPHPExcel = PHPExcel_IOFactory::load($target_file);
         $array = array();
         $worksheet = $objPHPExcel->setActiveSheetIndexbyName('Sheet1');
@@ -41,6 +44,17 @@
             $cases[] = $val;
         }
 
+        //Clustering with python
+        //Outputs two arrays with indexes
+        $res = exec('python cluster.py');
+        if (file_exists('cluster.txt')) {
+            unlink('cluster.txt');
+        }
+        $myfile = fopen("cluster.txt", "w");
+        fwrite($myfile, $res);
+        fclose($myfile);
+
+        //Save in json file
         $a = array();
         $b = array();
         for($i = 1; $i < count($genes); $i++){
@@ -61,6 +75,7 @@
 
 
         //Get values for tsv file
+        //Regular expression for each mutation
         $pattern_trunc = "/[A-Z][0-9]+\*/";
         $pattern_missence = "/([A-Z][0-9]+[A-Z]$)|([A-Z][0-9]+[A-Z],)|([A-Z][0-9]+[A-Z];)/";
         $pattern_frameshift = "/fs/";
@@ -140,7 +155,8 @@
         //Check for button
         echo 1;
     }
-    else { //Problems with file
+    else {
+        //Problems with file
         echo 0;
     }
 

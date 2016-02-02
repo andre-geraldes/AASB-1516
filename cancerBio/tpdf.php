@@ -1,14 +1,9 @@
 <?php
-<<<<<<< HEAD
     $table1 = $_REQUEST["tablePDF"];
     $amp = $_REQUEST["AMP"];
     $del = $_REQUEST["DEL"];
     $down = $_REQUEST["DOWN"];
     $up = $_REQUEST["UP"];
-=======
-
-    $table1 = $_REQUEST["tablePDF"];
->>>>>>> origin/master
     $init = '<!DOCTYPE html><html><head>
     <meta charset="utf-8">
         <style>
@@ -16,19 +11,11 @@
       svg *::selection {
          background : transparent;
       }
-<<<<<<< HEAD
 
       svg *::-moz-selection {
          background:transparent;
       }
 
-=======
-     
-      svg *::-moz-selection {
-         background:transparent;
-      } 
-     
->>>>>>> origin/master
       svg *::-webkit-selection {
          background:transparent;
       }
@@ -41,29 +28,17 @@
 
       rect.cell-border {
         stroke: #eee;
-<<<<<<< HEAD
         stroke-width:0.3px;
-=======
-        stroke-width:0.3px;   
->>>>>>> origin/master
       }
 
       rect.cell-selected {
         stroke: rgb(51,102,153);
-<<<<<<< HEAD
         stroke-width:0.5px;
-=======
-        stroke-width:0.5px;   
->>>>>>> origin/master
       }
 
       rect.cell-hover {
         stroke: #F00;
-<<<<<<< HEAD
         stroke-width:0.3px;
-=======
-        stroke-width:0.3px;   
->>>>>>> origin/master
       }
 
       text.mono {
@@ -118,7 +93,7 @@
     <title>Temp</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/basic.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -135,7 +110,6 @@
 
 </head>
 
-<<<<<<< HEAD
 <body>';
 
     $labels = '<div>
@@ -181,25 +155,3 @@
     //exec('"/usr/bin/wkhtmltopdf" --javascript-delay 3000 tempPdf.html table.pdf');
     echo '<a href="table.pdf" download target="_blank"><img id="downloadImage" src="/img/download.gif" style="width:50px;height:50px;" onclick="hideIm()"></a>';
 ?>
-=======
-<body>
-           
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">';
-   
-    $end = '</div></div></div></body></html>' ;
-    $txt = $init.$table1.$end;
-               
-    $myfile = fopen("tempPdf.html", "w") or die("Unable to open file!");
-    fwrite($myfile, $txt);
-    fclose($myfile);
-    
-    //exec('wkhtmltopdf http://google.com google.pdf');
-    //exec('wkhtmltopdf/bin/wkhtmltopdf.exe http://cancerviewer.me/table.html table.pdf');
-    unlink('table.pdf');
-    exec('"wkhtmltopdf/bin/wkhtmltopdf" --javascript-delay 3000 http://localhost/cancer3/tempPdf.html table.pdf');
-    echo '<a href="table.pdf" download="table.pdf">download</a>';
-    //print ($output);
-?>
->>>>>>> origin/master

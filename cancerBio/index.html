@@ -144,46 +144,46 @@
 
     <!-- Page Content -->
     <div class="container">
-        <br>
-        <h1 style="color:rgb(23, 104, 150)"><p class="text-center">Multidimensional viewer of genetic alterations in cancer studies</p></h1>
-        <br><br>
+        <h1 style="color:rgb(23, 104, 150)" align="center">Multidimensional viewer of genetic alterations in cancer studies</h1>
+        <hr>
         <p class="text-justify">
             Genetic studies on cancer try to find the set of changes that may occur within the genome,
-            transcriptome or metiloma that might explain the origin of the cancer. They are usually found different changes for a tissue of
+            transcriptome or methylome that might explain the origin of the cancer. They are usually found different changes for a tissue of
             cancer, such as somatic mutations in the DNA which can be of different types as
             its consequences (non-synonymous, frame-shift, deletions, ...).
             We can also find changes in the level of expression of genes (which may be under- or over-expressed)
             or changes in metiloma that can be hyper- or hypo-methylated. There is also chromosomal alterations of loss
             or gain of the regions of the genome. All this information is typically described by the gene at the level of each sample.
-
-        </p>
-        <img src="img/excel.png" class="img-responsive center-block img-thumbnail" alt="excel" style="width:604px;height:328px;">
-        <p class="text-center">Example of data in an excel. The data consist of a set of N (samples) x P (genes) matrix, one for each type of change.</p>
+        </p><br>
+        <img src="img/front.png" class="img-responsive center-block img-thumbnail" style="width1000px;height:350px;">
         <hr>
 
-        <!--
-        <div class="row">
-            <div class="col-lg-12 text-justify">
-                <p class="lead">Please add an excel file to input!</p>
-                <form action="upload.php" method="post" enctype="multipart/form-data">
+        <h4 style="color:rgb(23, 104, 150)">If you don't know how to use this tool, check our quick tutorial <a href="about.html#tutorial">here</a>.</h4>
+        <div class="form-inline" style="float: left; width: auto; padding: 10px; border: 2px solid rgb(23, 104, 150);">
+            <div style="float: left; width:350px;">
+                <label for="file" style="color:rgb(23, 104, 150)">File input</label>
+                <form action="parser.php" method="post" enctype="multipart/form-data">
                     <input type="file" name="file" id="file">
                 </form>
-                <button onclick="parseFile()" name="submit" id="submit"> Send</button>
+                <p class="help-block">Only excel files e.g .xls, .xlsx.</p>
             </div>
-        </div>
-        -->
-        <!-- text input:
-        <input type="text" class="form-control" placeholder="Text input">
-        -->
-        <div class="form-inline" style="width: 350px; padding: 10px; border: 2px solid rgb(23, 104, 150);">
-            <label for="file">File input</label>
-            <form action="upload.php" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" id="file">
-            </form>
-            <p class="help-block">Only excel files e.g .xls, .xlsx.</p>
-            <button type="button" class="btn btn-primary btn-xs" name="submit" id="submit" onclick="parseFile()" style="float: right;">Send</button>
-            <!--<button class="btn btn-default" type="submit" onclick="parseFile()">Send</button>-->
-            <!--<button onclick="parseFile()" name="submit" id="submit"> Send</button>-->
+
+            <div style="float: left; width: 540px;">
+                <h5 style="color:rgb(23, 104, 150)">Cluster options:</h5>
+                <textarea id="configs" style="width: 500px; height:100px; padding: 5px; border: 1px solid rgb(23, 104, 150);" class="form-control">
+1,100
+10, AMP, DOWN
+30, UP, HOMDEL
+25, MUT, UP</textarea>
+            </div>
+            <div style="float: right; width: 200px;">
+                <p style="color:rgb(23, 104, 150)">1. First line: First value is the score of no events (space space), the second is the value of same event types;</p>
+                <p style="color:rgb(23, 104, 150)">2. Remaining lines: First the value of the event match and then the elements, comma separated.</p>
+
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary btn-l" name="submit" id="submit" onclick="parseFile()">Send</button>
+            </div>
         </div>
     </div>
     <!-- /.container -->
@@ -198,16 +198,33 @@
         var file = document.getElementById("file");
         var alpha=file.files[0];
         var fd= new FormData();
+        var config = $("#configs").val();
         fd.append('file',alpha);
+        //Create configs file
         $.ajax({
-            url: 'upload.php',
+            url: 'configs.php',
+            type: 'post',
+            data: {  "configs" : config},
+            success: function(response) {
+                },
+            error: function(err) {
+                    window.alert("Error on communication!");
+                 }
+        });
+        //Upload file
+        $.ajax({
+            url: 'parser.php',
             type: 'post',
             data: fd ,
             processData: false,  // tell jQuery not to process the data
             contentType: false,   // tell jQuery not to set contentType
             success: function(response) {
                 if(response == 1){
-                    window.location.replace("table.html");
+                    var delay=3000; //3 seconds
+
+                    setTimeout(function(){
+                        window.location.replace("table.html");
+                    }, delay);
                 }
                 else{
                     window.alert("Invalid file!")

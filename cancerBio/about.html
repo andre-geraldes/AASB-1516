@@ -95,7 +95,7 @@
     <!-- Custom CSS -->
     <style>
     body {
-        padding-top: 70px;
+        padding-top: 50px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
     </style>
@@ -144,15 +144,81 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" align="center">
+        <h1 id="tutorial" style="color:rgb(23, 104, 150)" align="center">So, how does this works?</h1>
+        <hr>
+        <h3 style="color:rgb(23, 104, 150)" align="center"><strong>> Quick tutorial <</strong></h3><br>
+        <h4 style="color:rgb(23, 104, 150)">1. You only need an excel file similar with this one:</h4>
+        <form method="get" action="info.xlsx">
+            <button type="submit" class="btn btn-primary btn-l">Example file</button>
+        </form>
+        <p class="help-block">You can use this one for test.</p>
+        <p>Must contains case IDs in rows, gene IDs in columns </p>
+        <p>and each cell must be empty or with some event.</p>
+        <p class="help-block">Event examples: "AMP", "UP", "HYPER", "MUT: E56*","AMP;HYPO", etc.</p>
+        <br><br>
 
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <p class="lead">Description about work?</p>
-            </div>
+        <h4 style="color:rgb(23, 104, 150)">2. Input the file in <a href="index.html">Home page</a> in this area:</h4>
+        <img src="/img/input.png" class="img-responsive center-block img-thumbnail" style="width:350px; height:100px; border:2px solid rgb(23, 104, 150)">
+        <br><br>
+
+        <h4 style="color:rgb(23, 104, 150)">3. Set the configurations for clustering your data in this box:</h4>
+        <img src="/img/configs.png" class="img-responsive center-block img-thumbnail" style="width:350px; height:100px; border:2px solid rgb(23, 104, 150)"><br>
+        <p>The values here will be used to calculate the similarity between two cells.</p>
+        <p><strong style="color:rgb(23, 104, 150)">Line 1</strong> Needs to contain 2 values, the first one is the score of two empty</p>
+        <p>events and the second one is the score of events that are equal.</p>
+        <p><strong style="color:rgb(23, 104, 150)">Next lines</strong> Will contain one score and the events that will have that score, separated by commas</p>
+        <br>
+        <p><strong style="color:rgb(23, 104, 150)">Something like this:</strong></p>
+        <textarea id="configs" style="width: 400px; height:80px; padding: 5px; border: 1px solid rgb(23, 104, 150);" class="form-control">
+1,100
+10, AMP, DOWN</textarea>
+        <p><strong style="color:rgb(23, 104, 150)">This means:</strong></p>
+        <textarea id="configs" style="width: 400px; height:100px; padding: 5px; border: 1px solid rgb(23, 104, 150);" class="form-control">
+1,100 -> Score 1 when comparing two empty cells and 100 for two equal cells
+10, AMP, DOWN -> Score 10 when one cell contains an AMP and the other one DOWN</textarea>
+        <br><br>
+
+        <h4 style="color:rgb(23, 104, 150)">4. Now click on the <img src="/img/send.png" style="width:40px; height:30px"> and wait for the results.</h4>
+        <p>This step may take some time, more data means more time to run.</p>
+        <br>
+
+        <h3 style="color:rgb(23, 104, 150)">5. Results page</h3>
+        <p>In this page you will see the results of your data in a matrix.</p>
+        <p>The default colors at top:</p>
+        <p><img src="/img/colors.png" style="width:800px; height:33px"></p>
+        <p>And the option to change some default colors.</p>
+        <p><img src="/img/options.png" style="width:450px; height:27px"></p>
+        <p>After changing just press <img src="/img/use.png" style="width:85px; height:30px"> to update matrix.
+        <br>
+        <p>And the option to choose how the elements in matrix are sorted: <img src="/img/order.png" style="width:150px; height:30px"></p>
+        <p>By default it shows the order in the excel file, you can choose cluster and by label,</p>
+        <p>by label works when you choose a caseID or a gene in matrix.</p>
+        <br>
+        <p>After that you can save the matrix to PDF, just press <img src="/img/pdf.png" style="width:40px; height:30px"> </p>
+        <p>And wait until the next image appears and click on it to download the pdf.</p>
+        <img src="/img/download.gif" style="width:50px;height:50px;">
+        <br><br><br>
+
+        <hr>
+        <div>
+            <h3 style="color:rgb(23, 104, 150)">Libraries, applications and languages used in this work:</h3>
+            <ul style="display:table">
+                <li><a href="http://www.d3js.org" target="_blank">d3.js</a></li>
+                <li><a href="http://getbootstrap.com" target="_blank">Bootstrap</a></li>
+                <li><a href="https://phpexcel.codeplex.com" target="_blank">PHPExcel</a></li>
+                <li><a href="http://wkhtmltopdf.org" target="_blank">wkhtmltopdf</a></li>
+                <li><a href="https://github.com/andre-geraldes/AASB-1516" target="_blank">Github</a></li>
+                <li>PHP</li>
+                <li>Python</li>
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>JSON</li>
+                <li>Excel</li>
+            </ul>
         </div>
         <!-- /.row -->
-
     </div>
     <!-- /.container -->
 

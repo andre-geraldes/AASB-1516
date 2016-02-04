@@ -4,6 +4,8 @@
     $del = $_REQUEST["DEL"];
     $down = $_REQUEST["DOWN"];
     $up = $_REQUEST["UP"];
+    $hyper = $_REQUEST["HYPER"];
+    $hypo = $_REQUEST["HYPO"];
     $init = '<!DOCTYPE html><html><head>
     <meta charset="utf-8">
         <style>
@@ -128,20 +130,44 @@
                     <div style="border-radius:5px 20px; background-color:'.$down.'; width:60px;"><h5 style="color:white">DOWN</h5></div>
                 </td>
                 <td>
-                    <div style="border-radius:5px 0px 0px 20px; background-color:#d63d2f; width:60px;"><h5 style="color:white">MUTA</h5></div>
+                    <div style="border-radius:5px 20px; background-color:'.$hyper.'; width:60px;"><h5 style="color:white">HYPER</h5></div>
                 </td>
                 <td>
-                    <div style="border-radius:5px 20px 5px 0px; background-color:rgb(254, 247, 155); width:60px;"><h5 style="color:rgb(116, 116, 116)">TIONS</h5></div>
+                    <div style="border-radius:5px 20px; background-color:'.$hypo.'; width:50px;"><h5 style="color:white">HYPO</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:#ad0000; width:60px;"><h5 style="color:white">TRUNC</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:#ff0000; width:90px;"><h5 style="color:white">MISSENCE</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:#ff7658; width:100px;"><h5 style="color:white">FRAMESHIFT</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:#da8900; width:60px;"><h5 style="color:white">SPLICE</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:orange; width:80px;"><h5 style="color:white">DELETION</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:#fafa00; width:70px;"><h5 style="color:#919191">DELINS</h5></div>
+                </td>
+                <td>
+                    <div style="border-radius:5px 20px; background-color:#fff598; width:90px;"><h5 style="color:#919191">INSERTION</h5></div>
                 </td>
             </tr>
         </table>
     </div>
-    <div>
+    <div align="center">
     ';
 
     $end = '</div></body></html>' ;
     $txt = $init.$labels.$table1.$end;
-    $myfile = fopen("tempPdf.html", "w") or die("Unable to open file!");
+    if(file_exists('tempPdf.html')){
+        unlink('tempPdf.html');
+    }
+    $myfile = fopen("tempPdf.html", "w");
     fwrite($myfile, $txt);
     fclose($myfile);
 
@@ -150,8 +176,8 @@
         unlink('table.pdf');
     }
     //Mac
-    shell_exec('"/usr/local/bin/wkhtmltopdf" --javascript-delay 3000 tempPdf.html table.pdf');
+    //shell_exec('"/usr/local/bin/wkhtmltopdf" --javascript-delay 3000 tempPdf.html table.pdf');
     //Linux
-    //exec('"/usr/bin/wkhtmltopdf" --javascript-delay 3000 tempPdf.html table.pdf');
+    exec('xvfb-run --server-args="-screen 0, 1024x768x24" wkhtmltopdf --javascript-delay 3000 tempPdf.html table.pdf');
     echo '<a href="table.pdf" download target="_blank"><img id="downloadImage" src="/img/download.gif" style="width:50px;height:50px;" onclick="hideIm()"></a>';
 ?>

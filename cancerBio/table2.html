@@ -54,7 +54,6 @@
       text.text-hover {
         fill: #00C;
       }
-
       #tooltip {
         position: absolute;
         width: 200px;
@@ -96,11 +95,17 @@
     <!-- Custom CSS -->
     <style>
     body {
-        padding-top: 50px;
+        padding-top: 70px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     }
     </style>
 
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 
@@ -145,12 +150,12 @@
             <div class="col-lg-12 text-center">
                 <h1 style="color:rgb(23, 104, 150)">Results</h1>
                 <hr>
-                <h6 style="color:#e28700; display:inline;"><img src="/img/alert.jpg" style="width:27px; height:22px"> If the data displayed is incorrect, refresh the page please.</h6>
-
                 <div>
-                   <!-- list of events with their color by default-->
                     <table align="center">
                         <tr>
+                            <td>
+                                <div style="border-radius:5px 20px; background-color:grey; width:65px;"><h5 style="color:white">Default</h5></div>
+                            </td>
                             <td>
                                 <div style="border-radius:5px 20px; background-color:green; width:50px;"><h5 style="color:white">AMP</h5></div>
                             </td>
@@ -164,45 +169,23 @@
                                 <div style="border-radius:5px 20px; background-color:#82CAFA; width:60px;"><h5 style="color:white">DOWN</h5></div>
                             </td>
                             <td>
-                                <div style="border-radius:5px 20px; background-color:#feb3e7; width:60px;"><h5 style="color:white">HYPER</h5></div>
+                                <div style="border-radius:5px 0px 0px 20px; background-color:#d63d2f; width:50px;"><h5 style="color:white">MUTA</h5></div>
                             </td>
                             <td>
-                                <div style="border-radius:5px 20px; background-color:#a649ee; width:50px;"><h5 style="color:white">HYPO</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:#ad0000; width:60px;"><h5 style="color:white">TRUNC</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:#ff0000; width:90px;"><h5 style="color:white">MISSENCE</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:#ff7658; width:100px;"><h5 style="color:white">FRAMESHIFT</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:#da8900; width:60px;"><h5 style="color:white">SPLICE</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:orange; width:80px;"><h5 style="color:white">DELETION</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:#fafa00; width:70px;"><h5 style="color:#919191">DELINS</h5></div>
-                            </td>
-                            <td>
-                                <div style="border-radius:5px 20px; background-color:#fff598; width:90px;"><h5 style="color:#919191">INSERTION</h5></div>
+                                <div style="border-radius:5px 20px 5px 0px; background-color:rgb(254, 247, 155); width:50px;"><h5 style="color:rgb(116, 116, 116)">TIONS</h5></div>
                             </td>
                         </tr>
                     </table>
                 </div>
     <p></p>
-<!--  will have results-->
+<!--                will have results-->
 <div id="results">
 
     <div id="tooltip" class="hidden">
         <p><span id="value"/></p>
     </div>
-    <!--d3 script, necessary for table sorting in real-time-->
     <script src="http://d3js.org/d3.v3.min.js"></script>
-<!--    multiple selects with choices in a dropdown fashion, to allow the user the possibility to change the colors of the events-->
+
     <select id="AMP" style="display: inline; width:65px; background: green; color: white;" onChange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor">
         <option value=green style="background: green;" selected>AMP</option>;
         <option value=#89C35C style="background: #89C35C;">lightgreen</option>;
@@ -243,55 +226,31 @@
         <option value=#70706d style="background: #70706d;">grey</option>;
         <option value=black style="background: black;">black</option>;
     </select>
-    <select id="HYPER" style="display: inline; width:80px; background: #feb3e7; color: white;" onChange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor">
-        <option value=green style="background: green;">green</option>;
-        <option value=#89C35C style="background: #89C35C;">lightgreen</option>;
-        <option value=#0000A0 style="background: #0000A0;">blue</option>;
-        <option value=#82CAFA style="background: #82CAFA;">lightblue</option>;
-        <option value=#feb3e7 style="background: #feb3e7;" selected>HYPER</option>;
-        <option value=#a649ee style="background: #a649ee;">purple</option>;
-        <option value=#70706d style="background: #70706d;">grey</option>;
-        <option value=black style="background: black;">black</option>;
-    </select>
-    <select id="HYPO" style="display: inline; width:75px; background: #a649ee; color: white;" onChange="this.style.backgroundColor=this.options[this.selectedIndex].style.backgroundColor">
-        <option value=green style="background: green;">green</option>;
-        <option value=#89C35C style="background: #89C35C;">lightgreen</option>;
-        <option value=#0000A0 style="background: #0000A0;">blue</option>;
-        <option value=#82CAFA style="background: #82CAFA;">lightblue</option>;
-        <option value=#feb3e7 style="background: #feb3e7;">pink</option>;
-        <option value=#a649ee style="background: #a649ee;" selected>HYPO</option>;
-        <option value=#70706d style="background: #70706d;">grey</option>;
-        <option value=black style="background: black;">black</option>;
-    </select>
-    <!--button that refreshes the table whith the options from the user-->
+
     <button type="button" class="btn btn-primary btn-xs" onclick="run_script()" style="float: center;">Use this colors</button>
-     <!--button that calls toPdf() function, that basicaly generates the pdf and when it´s done a button for it´s download will appear-->
-    <button id="pdfbutton" type="button" class="btn btn-primary btn-xs" onclick="toPdf()">PDF</button>
+    <button id="pdfbutton" type="button" class="btn btn-primary btn-xs" onclick="toPdf()" style="display: none">PDF</button>
 
-
+    <p></p>
     <div>
-        <br>
         <h5 style="color:rgb(23, 104, 150); display:inline;">Order:</h5>
-       <!-- dropdown select with table's available sorting types -->
         <select id="order">
-            <!--order from input file-->
-            <option value="default" selected>by file default</option>
-            <!--sort by hierarchy clustering-->
+            <option value="probecontrast">by file default</option>
             <option value="hclust">by cluster</option>
-            <!--sort by ascending/decreasing mutation values Note* this option do nothing when chosen from the dropdown, it is activated when a table's label from row/column is clicked-->
             <option value="custom">by label</option>
         </select>
     </div>
-    <!--this is where the pdf's download button will appear-->
     <div id ="download">
 
     </div>
-    <!--this is where the table with the results from the input file will appear-->
-    <div id="chart" style='overflow:auto; width:100%; height:100%;'></div>
+    <div id="chart" style='overflow:auto; width:100%; height:700px;'></div>
 
 </div>
 </div>
 <!-- /.row -->
+    <form id="svgform" method="post" action="a.pl">
+        <input type="hidden" id="output_format" name="output_format" value="">
+        <input type="hidden" id="data" name="data" value="">
+    </form>
 </div>
 <!-- /.container -->
 
@@ -301,20 +260,13 @@
 <!-- Core JavaScript -->
 <script src="js/basic.min.js"></script>
 
-<!--this is where our javascript funtions are defined-->
 <script type="text/javascript">
-
-    //functions to run when the page is loaded
-    $(document).ready(function() {
-        //function to fill the table with default settings
-        d3.selectAll("svg > *").remove();
-        run_script();
-    });
-
-   //function that populates the table
 function run_script(){
     //emptys chart div to give place a new table
     $("#chart").empty();
+    //shows the button to generate the pdf for the table
+    document.getElementById("pdfbutton").style.display = "inline";
+
     //using d3 we fetch information from a json file containing the names for columns and rows
     d3.json("cancer.json", function(cancer) {
     var matrix = [],
@@ -326,7 +278,7 @@ function run_script(){
         rowL = caseID.length,
         columnL = gene.length;
 
-        //fetch clustering index
+        //fetch clustering indices
     var clustR = cancer.row,
         clustC = cancer.column,
         //their length
@@ -338,8 +290,6 @@ function run_script(){
     var del = $("#HOMDEL").val();
     var up = $("#UP").val();
     var down = $("#DOWN").val();
-    var hyper = $("#HYPER").val();
-    var hypo = $("#HYPO").val();
 
     //margin options
     var margin = { top: 150, right: 50, bottom: 50, left: 100 },
@@ -358,7 +308,7 @@ function run_script(){
         });
         legendElementWidth = cellSize*2.5,
         colorBuckets = 21,
-        colors = ['white',amp,del,up,down,hyper,hypo,'#ad0000', '#ff0000', '#ff7658', '#da8900', 'orange', '#fafa00','#fff598'];// colors to use on events
+        colors = ['white',amp,del,up,down,'#ad0000', '#ff0000', 'rgb(251, 90, 90)', 'orange', '#fc914d', '#fafa00','rgb(254, 247, 155)'];// colors to use on events
 
         var hcrow = [];
         var hccol = [];
@@ -371,105 +321,118 @@ function run_script(){
     //from a tsv file we fetch positions of the events
     d3.tsv("cancer.tsv",
     function(d) {
-        //returns the position and event value/type from each line of the tsv file
-        return {
-            row:   +d.row_idx,
-            col:   +d.col_idx,
-            value: d.value
-            };
+    //returns the position and event value/type from each line of the tsv file
+    return {
+    row:   +d.row_idx,
+    col:   +d.col_idx,
+    value: d.value
+    };
     },
     function(error, data) {
-    // function called to get a color from an index
+    // function called to get a color from an indice
     var colorScale = d3.scale.quantile()
-        .domain([0, 13]) // domain of colors with the itial and final index
-        .range(colors);
+    .domain([0, 11])
+    .range(colors);
 
-    var svg = d3.select("#chart").append("svg") // append svg element (the table) with d3 select, to create a dynamic table
-		//apply size to the table
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")//  used to group SVG shapes together
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-        ;
+    var svg = d3.select("#chart").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    ;
     var rowSortOrder=false;
     var colSortOrder=false;
-	//povoates the labels of table's rows
-    var rowLabels = svg.append("g")//  used to group SVG shapes together
-        .selectAll(".rowLabelg")
-        .data(rowLabel)//get values from array rowLabel earlier populated
-        .enter()
-        .append("text")//type of element
-        .text(function (d) { return d; })
-        .attr("x", 0)
-        .attr("y", function (d, i) { return hcrow.indexOf(i+1) * cellSize; })//clustering order
-        .style("text-anchor", "end")
-        .attr("transform", "translate(-1," + cellSize / 1.5 + ")")
-        .attr("class", function (d,i) { return "rowLabel mono r"+i;} )
-        .on("mouseover", function(d) {d3.select(this).classed("text-hover",true);})//highlights selected
-        .on("mouseout" , function(d) {d3.select(this).classed("text-hover",false);})//undo above
-        .on("click", function(d,i) {rowSortOrder=!rowSortOrder; sortbylabel("r",i,rowSortOrder);d3.select("#order").property("selectedIndex", 2).node().focus();;})//order by clicked label, also changes the order select to "by label""
-        ;
-	//povoates the labels of table's columns
-    var colLabels = svg.append("g")//used to group SVG shapes together
-        .selectAll(".colLabelg")
-        .data(colLabel)// get values from array colLabel earlier populated
-        .enter()
-        .append("text")//type of element
-        .text(function (d) { return d; })
-        .attr("x", 0)
-        .attr("y", function (d, i) { return hccol.indexOf(i+1) * cellSize; })//clustering order
-        .style("text-anchor", "left")
-        .attr("transform", "translate("+cellSize/2 + ",-6) rotate (-90)")
-        .attr("class",  function (d,i) { return "colLabel mono c"+i;} )
-        .on("mouseover", function(d) {d3.select(this).classed("text-hover",true);})//highlights selected
-        .on("mouseout" , function(d) {d3.select(this).classed("text-hover",false);})//undo above
-        .on("click", function(d,i) {colSortOrder=!colSortOrder;  sortbylabel("c",i,colSortOrder);d3.select("#order").property("selectedIndex", 2).node().focus();;})//order by clicked label
-        ;
+    var rowLabels = svg.append("g")
+    .selectAll(".rowLabelg")
+    .data(rowLabel)
+    .enter()
+    .append("text")
+    .text(function (d) { return d; })
+    .attr("x", 0)
+    .attr("y", function (d, i) { return hcrow.indexOf(i+1) * cellSize; })
+    .style("text-anchor", "end")
+    .attr("transform", "translate(-1," + cellSize / 1.5 + ")")
+    .attr("class", function (d,i) { return "rowLabel mono r"+i;} )
+    .on("mouseover", function(d) {d3.select(this).classed("text-hover",true);})
+    .on("mouseout" , function(d) {d3.select(this).classed("text-hover",false);})
+    .on("click", function(d,i) {rowSortOrder=!rowSortOrder; sortbylabel("r",i,rowSortOrder);d3.select("#order").property("selectedIndex", 2).node().focus();;})
+    ;
 
-	//svg elements that represents a cell in the table
+    var colLabels = svg.append("g")
+    .selectAll(".colLabelg")
+    .data(colLabel)
+    .enter()
+    .append("text")
+    .text(function (d) { return d; })
+    .attr("x", 0)
+    .attr("y", function (d, i) { return hccol.indexOf(i+1) * cellSize; })
+    .style("text-anchor", "left")
+    .attr("transform", "translate("+cellSize/2 + ",-6) rotate (-90)")
+    .attr("class",  function (d,i) { return "colLabel mono c"+i;} )
+    .on("mouseover", function(d) {d3.select(this).classed("text-hover",true);})
+    .on("mouseout" , function(d) {d3.select(this).classed("text-hover",false);})
+    .on("click", function(d,i) {colSortOrder=!colSortOrder;  sortbylabel("c",i,colSortOrder);d3.select("#order").property("selectedIndex", 2).node().focus();;})
+    ;
 
-	//first element that represents the first event of three possible
     var heatMap = svg.append("g").attr("class","g3")
-        .selectAll(".cellg")
-        .data(data,function(d){return d.row+":"+d.col; })// index of the element in the table
-        .enter()
-        .append("rect")// type of element
-        .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; }) // position in x
-        .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; }) // position in y
-        .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
-        .attr("width", cellSize)
-        .attr("height", cellSize)
-        .style("fill", function(d) {var s=""+d.value;//d.value has the events of a specific cell
-    var i=s.charAt(0);// gets the first event and stores it in a variable
+    .selectAll(".cellg")
+    .data(data,function(d){return d.row+":"+d.col; })
+    .enter()
+    .append("rect")
+    .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
+    .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
+    .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
+    .attr("width", cellSize)
+    .attr("height", cellSize)
+    .style("fill", function(d) {var s=""+d.value;
+    var i=s.charAt(0);
+    //console.log(d.value);
+    if(isNaN(i)){
 
-    if(isNaN(i)){// if it is a mutation(it's not numeric) Note* on the tsv file, mutations have a letter to represent them, other events a number
-        return colorScale(mutToid(i)); // mutToid (gives a index of that mutation on the colour array), colorScale gets the colour code.
+    return colorScale(mutToid(i));
+
     }
     else{
-        return colorScale(parseInt(i));//convert the variable i to integer and gets it's color code.
+    return colorScale(parseInt(i));
     }
 
     })
-	//when a cell is moused-over
+    /*
+    .style("stroke", function(d) { if(d.value){return "blue";}else{return "none"} })
+    .style("stroke-width", 2)
+    */
+
+    //.style("stroke","green")
+    //.style("stroke-width",2)
+    /*  .append("box:before")
+    .attr("border","12px")
+    .attr("width",2)
+    .attr("height", 2)
+    .style("fill","red")*/
+    /* .on("click", function(d) {
+    var rowtext=d3.select(".r"+(d.row-1));
+    if(rowtext.classed("text-selected")==false){
+       rowtext.classed("text-selected",true);
+    }else{
+       rowtext.classed("text-selected",false);
+    }
+    })*/
     .on("mouseover", function(d){
     //highlight text
     d3.select(this).classed("cell-hover",true);
-    d3.selectAll(".rowLabel").classed("text-highlight",function(r,ri){ return ri==(d.row-1);});//highlights the respective row label
-    d3.selectAll(".colLabel").classed("text-highlight",function(c,ci){ return ci==(d.col-1);});//highlights the respective column label
+    d3.selectAll(".rowLabel").classed("text-highlight",function(r,ri){ return ri==(d.row-1);});
+    d3.selectAll(".colLabel").classed("text-highlight",function(c,ci){ return ci==(d.col-1);});
 
-    //Update the tool-tip position and value
+    //Update the tooltip position and value
     d3.select("#tooltip")
-	//tool-tip position
-     .style("left", (d3.event.pageX-50) + "px")
-     .style("top", (d3.event.pageY-50) + "px")
+     .style("left", (d3.event.pageX-100) + "px")
+     .style("top", (d3.event.pageY-100) + "px")
      .select("#value")
-     .text("CaseID: "+rowLabel[d.row-1]+", Gene: "+colLabel[d.col-1]+"\nevent type: "+idToMUT((""+d.value).charAt(0))+"\nrow-col-idx:"+d.row+","+d.col);//text in tool-tip
-    //Show the tool-tip
-    d3.select("#tooltip").classed("hidden", false);//shows the tool-tip
+     .text("CaseID: "+rowLabel[d.row-1]+", Gene: "+colLabel[d.col-1]+"\nmutation type: "+idToMUT((""+d.value).charAt(0))+"\nrow-col-idx:"+d.col+","+d.row);
+    //Show the tooltip
+    d3.select("#tooltip").classed("hidden", false);
     })
-	//when the mouse leaves the cell
     .on("mouseout", function(){
-	//undo previous changes of mouse-over like hide the tool-tip
     d3.select(this).classed("cell-hover",false);
     d3.selectAll(".rowLabel").classed("text-highlight",false);
     d3.selectAll(".colLabel").classed("text-highlight",false);
@@ -477,7 +440,7 @@ function run_script(){
     })
     ;
 
-	//svg element that represents the second event in d.value it is very similar to the element above so only what is different will be explained
+
     var newMpap = svg.append("g").attr("class","g3")
         .selectAll(".cellg")
         .data(data,function(d){return d.row+":"+d.col; })
@@ -487,12 +450,11 @@ function run_script(){
         .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
         .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
         .attr("width",  function(d) {var s=""+d.value;
-        if(s.length > 1){ return cellSize/2 ;}else{ return cellSize;}})//if another event exists draw it in the same cell but in half the space, so the two of them can be visible
-        //																 otherwise overwrites the element above.
-		.attr("height", cellSize)
+        if(s.length > 1){ return cellSize/2 ;}else{ return cellSize;}})
+        .attr("height", cellSize)
         .style("fill", function(d) {var s=""+d.value;
-        if(s.length > 1){ i=s.charAt(1);}else{ i=s.charAt(0);}//if a second element exists store its value on a variable if it doesn't exist stores the first event.
-
+        if(s.length > 1){ i=s.charAt(1);}else{ i=s.charAt(0);}
+        //console.log(i);
         if(isNaN(i)){
             return colorScale(mutToid(i));
         }
@@ -506,10 +468,10 @@ function run_script(){
     if(s1.length >1){mut = idToMUT((s1).charAt(1));}else{mut = idToMUT((s1).charAt(0));}
     //Update the tooltip position and value
     d3.select("#tooltip")
-     .style("left", (d3.event.pageX-50) + "px")
-     .style("top", (d3.event.pageY-50) + "px")
+     .style("left", (d3.event.pageX-100) + "px")
+     .style("top", (d3.event.pageY-100) + "px")
      .select("#value")
-     .text("CaseID: "+rowLabel[d.row-1]+", Gene: "+colLabel[d.col-1]+"\nevent type: "+ mut+"\nrow-col-idx:"+d.row+","+d.col);
+     .text("CaseID: "+rowLabel[d.row-1]+", Gene: "+colLabel[d.col-1]+"\nmutation type: "+ mut+"\nrow-col-idx:"+d.col+","+d.row);               //Show the tooltip
     d3.select("#tooltip").classed("hidden", false);
     })
     .on("mouseout", function(){
@@ -520,21 +482,22 @@ function run_script(){
     })
     ;
 
-	//svg element that represents the third event, further events won't be represented. This element will have stroke only shape
+
     var strokMap = svg.append("g").attr("class","g3")
-        .selectAll(".cellg")
-        .data(data,function(d){return d.row+":"+d.col; })
-        .enter()
-        .append("rect")
-        .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
-        .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
-        .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
-        .attr("width", cellSize)
-        .attr("height", cellSize)
-        .style("fill", "none")//this element has no fill
-        .style("stroke",function(d){s3 = ""+d.value; if(s3.length >2){ i=s3.charAt(2); if(isNaN(i)){return colorScale(mutToid(i));} else {return colorScale(parseInt(s3.charAt(2)));} } else{return "none";}} )
-        .style("stroke-width",2)//adding the stroke
-        .on("mouseover", function(d){
+    .selectAll(".cellg")
+    .data(data,function(d){return d.row+":"+d.col; })
+    .enter()
+    .append("rect")
+    .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
+    .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
+    .attr("class", function(d){return "cell cell-border cr"+(d.row-1)+" cc"+(d.col-1);})
+    .attr("width", cellSize)
+    .attr("height", cellSize)
+    .style("fill", "none")
+    .style("stroke",function(d){s3 = ""+d.value; if(s3.length >2){return colorScale(parseInt(s3.charAt(2))); } else{return "none";}} )
+    .style("stroke-width",2)
+    .on("mouseover", function(d){
+    //highlight text
 
     d3.select(this).classed("cell-hover",true);
     d3.selectAll(".rowLabel").classed("text-highlight",function(r,ri){ return ri==(d.row-1);});
@@ -543,10 +506,10 @@ function run_script(){
     if(s1.length >2){mut = idToMUT((s1).charAt(2));}else{mut = idToMUT((s1).charAt(0));}
     //Update the tooltip position and value
     d3.select("#tooltip")
-        .style("left", (d3.event.pageX-50) + "px")
-        .style("top", (d3.event.pageY-50) + "px")
-        .select("#value")
-        .text("CaseID: "+rowLabel[d.row-1]+", Gene: "+colLabel[d.col-1]+"\nevent type: "+ mut+"\nrow-col-idx:"+d.row+","+d.col);
+     .style("left", (d3.event.pageX-100) + "px")
+     .style("top", (d3.event.pageY-100) + "px")
+     .select("#value")
+     .text("CaseID: "+rowLabel[d.row-1]+", Gene: "+colLabel[d.col-1]+"\nmutation type: "+ mut+"\nrow-col-idx:"+d.col+","+d.row);               //Show the tooltip
     d3.select("#tooltip").classed("hidden", false);
     })
     .on("mouseout", function(){
@@ -559,44 +522,57 @@ function run_script(){
 
 
 
-    // function of sorting by label
+    // Change ordering of cells
     function sortbylabel(rORc,i,sortOrder){
-        var t = svg.transition().duration(2000);//time it takes to reorder the table (2 seconds)
+        var t = svg.transition().duration(3000);
         var log2r=[];
         var sorted; // sorted is zero-based index
         d3.selectAll(".c"+rORc+i)
         .filter(function(ce){
 
-        log2r.push(valueToInt(ce.value+""));//add values calculated with valueToint to log2r array
+        log2r.push(valueToInt(ce.value+""));
         })
         ;
-        if(rORc=="r"){ // sort log2ratio of a gene
-            sorted=d3.range(col_number).sort(function(a,b){ if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});// sort order can be from min to max or vice-versa. Apply d3.sort function
-            t.selectAll(".cell")
-            .attr("x", function(d) { return sorted.indexOf(d.col-1) * cellSize; })// returns cell's new sorted index on x
-            ;
-            t.selectAll(".colLabel")
-            .attr("y", function (d, i) { return sorted.indexOf(i) * cellSize; })// returns cell's new sorted index on y
-            ;
-        }else{ // sort log2ratio of a caseID
-            sorted=d3.range(row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
-            t.selectAll(".cell")
-            .attr("y", function(d) { return sorted.indexOf(d.row-1) * cellSize; })
-            ;
-            t.selectAll(".rowLabel")
-            .attr("y", function (d, i) { return sorted.indexOf(i) * cellSize; })
-            ;
+    if(rORc=="r"){ // sort log2ratio of a gene
+    sorted=d3.range(col_number).sort(function(a,b){ if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
+    t.selectAll(".cell")
+    .attr("x", function(d) { return sorted.indexOf(d.col-1) * cellSize; })
+    ;
+    t.selectAll(".colLabel")
+    .attr("y", function (d, i) { return sorted.indexOf(i) * cellSize; })
+    ;
+    }else{ // sort log2ratio of a contrast
+    sorted=d3.range(row_number).sort(function(a,b){if(sortOrder){ return log2r[b]-log2r[a];}else{ return log2r[a]-log2r[b];}});
+    t.selectAll(".cell")
+    .attr("y", function(d) { return sorted.indexOf(d.row-1) * cellSize; })
+    ;
+    t.selectAll(".rowLabel")
+    .attr("y", function (d, i) { return sorted.indexOf(i) * cellSize; })
+    ;
     }
     }
-	//gets the sorting choice from order select and reorders according to that value
+
     d3.select("#order").on("change",function(){
         order(this.value);
     });
 
     function order(value){
-        if (value=="default"){//elements as they were given on the excel file
-            var t = svg.transition().duration(2000);
-			//just goes to all cells and gives them the index on the tsv file
+        if(value=="hclust"){
+            var t = svg.transition().duration(3000);
+            t.selectAll(".cell")
+            .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
+            .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
+            ;
+
+            t.selectAll(".rowLabel")
+            .attr("y", function (d, i) { return hcrow.indexOf(i+1) * cellSize; })
+            ;
+
+            t.selectAll(".colLabel")
+            .attr("y", function (d, i) { return hccol.indexOf(i+1) * cellSize; })
+            ;
+        }else if (value=="default"){
+            var t = svg.transition().duration(3000);
             t.selectAll(".cell")
             .attr("x", function(d) { return (d.col - 1) * cellSize; })
             .attr("y", function(d) { return (d.row - 1) * cellSize; })
@@ -610,36 +586,34 @@ function run_script(){
             .attr("y", function (d, i) { return i * cellSize; })
             ;
 
-        }
-		//sort-by clustering gives the index to the cells in hccol and hcrow previously populated
-        else if(value=="hclust"){
-            var t = svg.transition().duration(2000);
-            t.selectAll(".cell")
-            .attr("x", function(d) { return hccol.indexOf(d.col) * cellSize; })
-            .attr("y", function(d) { return hcrow.indexOf(d.row) * cellSize; })
-            ;
+        }else if (value=="probe"){
+        var t = svg.transition().duration(3000);
+        t.selectAll(".cell")
+        .attr("y", function(d) { return (d.row - 1) * cellSize; })
+        ;
 
-            t.selectAll(".rowLabel")
-            .attr("y", function (d, i) { return hcrow.indexOf(i+1) * cellSize; })
-            ;
-
-            t.selectAll(".colLabel")
-            .attr("y", function (d, i) { return hccol.indexOf(i+1) * cellSize; })
-            ;
+        t.selectAll(".rowLabel")
+        .attr("y", function (d, i) { return i * cellSize; })
+        ;
+        }else if (value=="contrast"){
+        var t = svg.transition().duration(3000);
+        t.selectAll(".cell")
+        .attr("x", function(d) { return (d.col - 1) * cellSize; })
+        ;
+        t.selectAll(".colLabel")
+        .attr("y", function (d, i) { return i * cellSize; })
+        ;
         }
     }
-
-	 //Optional, it will reorder the table to the default type sort
     order("default");
-
+    //
     var sa=d3.select(".g3")
     .on("mousedown", function() {
     if( !d3.event.altKey) {
-        d3.selectAll(".cell-selected").classed("cell-selected",false);
-        d3.selectAll(".rowLabel").classed("text-selected",false);
-        d3.selectAll(".colLabel").classed("text-selected",false);
+    d3.selectAll(".cell-selected").classed("cell-selected",false);
+    d3.selectAll(".rowLabel").classed("text-selected",false);
+    d3.selectAll(".colLabel").classed("text-selected",false);
     }
-	//mouse characteristics on selections
     var p = d3.mouse(this);
     sa.append("rect")
     .attr({
@@ -734,7 +708,7 @@ function run_script(){
     });
     //Close run_script
 }
-	//Function that gives a textual representation of an event
+
     function idToMUT(id){
         if(id=='0')
             {
@@ -742,77 +716,68 @@ function run_script(){
             }
         if(id=='1')
             {
-                return "Copy number variation -> AMP";
+                return "AMP";
             }
         if(id=='2')
             {
-                return "Copy number variation -> HOMDEL";
+                return "HOMDEL";
             }
         if(id=='3')
             {
-                return "Expression -> UP";
+                return "UP";
             }
 
         if(id=='4')
             {
-                return "Expression -> DOWN";
-            }
-        if(id=='5')
-            {
-                return "Metilation -> HYPER";
-            }
-        if(id=='6')
-            {
-                return "Metilation -> HYPO";
+                return "DOWN";
             }
         if(id=='A'){
-        return 'Mutation -> TRUNC';
+        return 'TRUNC';
         }
         if(id=='B'){
-        return 'Mutation -> MISSENCE';
+        return 'MISSENCE';
         }
         if(id=='C'){
-        return 'Mutation -> FRAMESHIFT';
+        return 'FRAMESHIFT';
         }
         if(id=='D'){
-        return 'Mutation -> SPLICE';
+        return 'SPLICE';
         }
         if(id=='E'){
-        return 'Mutation -> DELETION';
+        return 'DELETION';
         }
         if(id=='F'){
-        return 'Mutation -> DELINS';
+        return 'DELINS';
         }
         if(id=='G'){
-        return 'Mutation -> INSERTION';
-        }
-    }
-	//Function that calculates the index os a mutation on the colour's array
-    function mutToid(mut){
-        if(mut=='A'){
-            return 7;
-        }
-        if(mut=='B'){
-            return 8;
-        }
-        if(mut=='C'){
-            return 9;
-        }
-        if(mut=='D'){
-            return 10;
-        }
-        if(mut=='E'){
-            return 11;
-        }
-        if(mut=='F'){
-            return 12;
-        }
-        if(mut=='G'){
-            return 13;
+        return 'INSERTION';
         }
     }
 
-	//function that calculates the value of multiple/one event(s) that occurs in a cell
+    function mutToid(mut){
+        if(mut=='A'){
+            return 5;
+        }
+        if(mut=='B'){
+            return 6;
+        }
+        if(mut=='C'){
+            return 7;
+        }
+        if(mut=='D'){
+            return 8;
+        }
+        if(mut=='E'){
+            return 9;
+        }
+        if(mut=='F'){
+            return 10;
+        }
+        if(mut=='G'){
+            return 11;
+        }
+    }
+
     function valueToInt(value){
         res=0;
         for(i=0;i<value.length;i++){
@@ -820,7 +785,7 @@ function run_script(){
         var l = value.charAt(i);
         if(isNaN(l))
         {
-        res+=mutValue(l);
+        res+=mutToid(l);
         }
         else
         {
@@ -829,31 +794,6 @@ function run_script(){
 
         }return res;
     }
-	//function that gives a value to a mutation for sorting
-	function mutValue(mut){
-		if(mut=='A'){
-            return 600;
-        }
-        if(mut=='B'){
-            return 450;
-        }
-        if(mut=='C'){
-            return 350;
-        }
-        if(mut=='D'){
-            return 250;
-        }
-        if(mut=='E'){
-            return 200;
-        }
-        if(mut=='F'){
-            return 150;
-        }
-        if(mut=='G'){
-            return 100;
-        }
-
-	}
 
     //Calls php with wkhtmltopdf to create pdf
     function toPdf(){
@@ -872,13 +812,11 @@ function run_script(){
         var del = $("#HOMDEL").val();
         var up = $("#UP").val();
         var down = $("#DOWN").val();
-        var hyper = $("#HYPER").val();
-        var hypo = $("#HYPO").val();
 
         $.ajax({
               url: 'tpdf.php',
               type: 'post',
-              data: {  "tablePDF" : s1 , "AMP" : amp, "DEL" : del, "UP" : up, "DOWN" : down, "HYPER" : hyper, "HYPO" : hypo},
+              data: {  "tablePDF" : s1 , "AMP" : amp, "DEL" : del, "UP" : up, "DOWN" : down},
                 success: function(response) {
                        $("#download").append(response);
                     },
@@ -897,7 +835,7 @@ function run_script(){
     function hideIm(){
         remove("downloadImage");
     }
-
+    
 </script>
 
 </body>

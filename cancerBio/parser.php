@@ -23,10 +23,61 @@
         //Open the excel file
         $objPHPExcel = PHPExcel_IOFactory::load($target_file);
         $array = array();
-        $worksheet = $objPHPExcel->setActiveSheetIndexbyName('Sheet1');
+        //$worksheet = $objPHPExcel->setActiveSheetIndexbyName('Sheet1');
+        $worksheet = $objPHPExcel->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
         $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumn);
+
+        //Clustering with python
+        //First convert excel to a txt with the matrix
+        $matrix = array();
+        for ($row = 2; $row <= $highestRow; ++ $row) {
+            $line = array();
+            for ($col = 1; $col < $highestColumnIndex; ++ $col) {
+                $cell = $worksheet->getCellByColumnAndRow($col, $row);
+                $val = $cell->getValue();
+                //Empty cells are 0
+                if($val !== '  '){
+                    $line[] = $val;
+                }
+                else {
+                    $line[] = 0;
+                }
+            }
+            $matrix[] = $line;
+        }
+        //Write matrix to file
+        if (file_exists('matrix.txt')) {
+            unlink('matrix.txt');
+        }
+        $myfile = fopen("matrix.txt", "w");
+        for($i = 0; $i < count($matrix); $i++){
+            for($j = 0; $j < count($matrix[$i]); $j++){
+                fwrite($myfile, $matrix[$i][$j]."-");
+            }
+            fwrite($myfile, "\n");
+        }
+        fclose($myfile);
+        //Now call python with the matrix to create the cluster
+        //$res = exec('python cluster.py matrix.txt');
+        $res = exec('python cluster.py');
+        //Break python arrays
+        $a = preg_split("/], \[/", $res);
+        $a[0] = substr($a[0],2,strlen($a[0]));
+        $a[1] = substr($a[1],0,strlen($a[1])-2);
+        //Convert to arrays in php
+        $rows = preg_split("/,/", $a[0]);
+        $columns = preg_split("/,/", $a[1]);
+        //Remove spaces in indexes and convert to int
+        for($i = 0; $i < count($rows); $i++){
+            $rows[$i] = str_replace(' ', '', $rows[$i]);
+            $rows[$i] = (int)$rows[$i] + 1;
+        }
+        for($i = 0; $i < count($columns); $i++){
+            $columns[$i] = str_replace(' ', '', $columns[$i]);
+            $columns[$i] = (int)$columns[$i] + 1;
+        }
 
         //Create JSON file
         //Get genes names
@@ -44,26 +95,24 @@
             $cases[] = $val;
         }
 
-        //Clustering with python
-        //Outputs two arrays with indexes
-        $res = exec('python cluster.py');
-        if (file_exists('cluster.txt')) {
-            unlink('cluster.txt');
-        }
-        $myfile = fopen("cluster.txt", "w");
-        fwrite($myfile, $res);
-        fclose($myfile);
-
-        //Save in json file
-        $a = array();
-        $b = array();
+        //Save json file
+        $a = array(); //genes names
+        $b = array(); //caseIDs
+        $c = array(); //rows for cluster
+        $d = array(); //columns for cluster
         for($i = 1; $i < count($genes); $i++){
             $a[] = array('name' => $genes[$i]);
         }
         for($i = 1; $i < count($cases); $i++){
             $b[] = array('name' => $cases[$i]);
         }
-        $all = array('gene' => $a, 'caseID' => $b);
+        for($i = 0; $i < count($rows); $i++){
+            $c[] = array('name' => $rows[$i]);
+        }
+        for($i = 0; $i < count($columns); $i++){
+            $d[] = array('name' => $columns[$i]);
+        }
+        $all = array('gene' => $a, 'caseID' => $b, 'row' => $c, 'column' => $d);
         //Erase last json file
         if (file_exists('cancer.json')) {
             unlink('cancer.json');
@@ -85,6 +134,7 @@
         $pattern_insertion = "/[0-9]ins/";
         for ($col = 1; $col < $highestColumnIndex; ++ $col) {
             for ($row = 2; $row <= $highestRow; ++ $row) {
+                //Get value in each cell
                 $cell = $worksheet->getCellByColumnAndRow($col, $row);
                 $val = $cell->getValue();
                 $total = "";

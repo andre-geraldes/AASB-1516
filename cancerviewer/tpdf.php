@@ -92,10 +92,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Temp</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="css/basic.min.css" rel="stylesheet">
+    <!-- Core CSS -->
+    <link href="css/basic.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <style>
@@ -114,7 +112,10 @@
 
 <body>';
 
-    $labels = '<div>
+    $labels = '
+    <div align="center">
+    <div>
+        <!--
         <table align="center">
             <tr>
                 <td>
@@ -158,8 +159,12 @@
                 </td>
             </tr>
         </table>
+        -->
+        <p><strong style="color:'.$amp.';">AMP </strong><strong style="color:'.$del.';">HOMDEL </strong><strong style="color:'.$up.';">UP </strong><strong style="color:'.$down.';">DOWN </strong><strong style="color:'.$hyper.';">HYPER </strong><strong style="color:'.$hypo.';">HYPO </strong>
+        <strong style="color:#ad0000;">TRUNC </strong><strong style="color:#ff0000;">MISSENCE </strong><strong style="color:#ff7658;">FRAMESHIFT </strong></strong><strong style="color:#da8900;">SPLICE </strong>
+        <strong style="color:orange;">DELETION </strong><strong style="color:#fafa00;">DELINS </strong><strong style="color:#fff598;">INSERTION </strong>
+        </p>
     </div>
-    <div align="center">
     ';
 
     $end = '</div></body></html>' ;
@@ -176,8 +181,8 @@
         unlink('table.pdf');
     }
     //Mac
-    //shell_exec('"/usr/local/bin/wkhtmltopdf" --javascript-delay 3000 tempPdf.html table.pdf');
+    shell_exec('"/usr/local/bin/wkhtmltopdf" --javascript-delay 3000 tempPdf.html table.pdf');
     //Linux
-    exec('xvfb-run --server-args="-screen 0, 1024x768x24" wkhtmltopdf --javascript-delay 3000 tempPdf.html table.pdf');
+    //exec('xvfb-run --server-args="-screen 0, 1024x768x24" wkhtmltopdf --javascript-delay 3000 tempPdf.html table.pdf');
     echo '<a href="table.pdf" download target="_blank"><img id="downloadImage" src="/img/download.gif" style="width:50px;height:50px;" onclick="hideIm()"></a>';
 ?>

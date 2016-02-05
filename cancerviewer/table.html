@@ -533,7 +533,7 @@ function run_script(){
         .attr("height", cellSize)
         .style("fill", "none")//this element has no fill
         .style("stroke",function(d){s3 = ""+d.value; if(s3.length >2){ i=s3.charAt(2); if(isNaN(i)){return colorScale(mutToid(i));} else {return colorScale(parseInt(s3.charAt(2)));} } else{return "none";}} )
-        .style("stroke-width",2)//adding the stroke
+        .style("stroke-width",3)//adding the stroke
         .on("mouseover", function(d){
 
     d3.select(this).classed("cell-hover",true);

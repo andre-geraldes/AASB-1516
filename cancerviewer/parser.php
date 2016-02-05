@@ -60,7 +60,7 @@
         }
         fclose($myfile);
         //Now call python with the matrix to create the cluster
-        //$res = exec('python cluster.py matrix.txt');
+        //Returns two arrays in same line
         $res = exec('python cluster.py');
         //Break python arrays
         $a = preg_split("/], \[/", $res);
@@ -72,7 +72,7 @@
         //Remove spaces in indexes and convert to int
         for($i = 0; $i < count($rows); $i++){
             $rows[$i] = str_replace(' ', '', $rows[$i]);
-            $rows[$i] = (int)$rows[$i] + 1;
+            $rows[$i] = (int)$rows[$i] + 1; //D3.js first index is 1 so we need to sum 1 here.
         }
         for($i = 0; $i < count($columns); $i++){
             $columns[$i] = str_replace(' ', '', $columns[$i]);
